@@ -14,8 +14,11 @@ function addLi(){
     
     var editBtn = document.createElement("button");
     editBtn.setAttribute('class', 'fa-regular fa-pen-to-square edit-Btn')
+    editBtn.setAttribute('onclick', 'editTodo(this)')
+
     var deleteBtn = document.createElement("button");
     deleteBtn.setAttribute('class', 'fa-regular fa-trash-can delete-Btn')
+    deleteBtn.setAttribute('onclick', 'deleteTodo(this)')
 
     btnDiv.appendChild(editBtn);
     btnDiv.appendChild(deleteBtn);
@@ -23,14 +26,29 @@ function addLi(){
     li.appendChild(btnDiv);
     parent.appendChild(li);
     }else{
-        console.log('Enter todo first');
+        alert('Enter todo first');
     }
-
+    input.value = "";
 }
 
 function deleteAll(){
-    var childList = parent.children;
-    // console.log(childList);
-    childList.remove();
-    parent.remove();
+    console.log(parent.firstElementChild);
+
+    for(var i=0; i<parent.children.length; i++){
+        parent.lastElementChild.remove();
+    }
+}
+
+
+function deleteTodo(ele){
+    var li = ele.parentNode.parentNode;
+    li.remove();
+}
+
+function editTodo(ele){
+    var liText = ele.parentNode.parentNode.firstElementChild.innerHTML;
+    var edited = prompt("edit here", liText);
+    if(edited.length>0){
+        ele.parentNode.parentNode.firstElementChild.innerHTML = edited;
+    }
 }
